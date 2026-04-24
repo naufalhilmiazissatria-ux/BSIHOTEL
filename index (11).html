@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BSI Hotel | Skyline Floor 17 - Booking System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body { font-family: 'Poppins', sans-serif; background-color: #0a0a0a; color: #e5e7eb; }
+        .blue-gradient { background: linear-gradient(135deg, #0ea5e9 0%, #38bdf8 100%); }
+        .text-blue-light { color: #38bdf8; }
+        .bg-blue-light { background-color: #38bdf8; }
+        .card-room { transition: all 0.3s ease; background: #111; border: 1px solid rgba(255,255,255,0.05); }
+        .card-room:hover { border-color: #38bdf8; transform: translateY(-5px); }
+        .modal { transition: opacity 0.3s ease, visibility 0.3s ease; opacity: 0; visibility: hidden; }
+        .modal.active { opacity: 1; visibility: visible; }
+        input[type="date"]::-webkit-calendar-picker-indicator { filter: invert(1); cursor: pointer; }
+    </style>
+</head>
+<body class="overflow-x-hidden">
+
+    <nav class="fixed w-full z-50 bg-black/90 border-b border-white/10 backdrop-blur-md">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="text-2xl font-black tracking-tighter uppercase italic">
+                <span class="text-white">BSI</span><span class="text-blue-light">HOTEL</span>
+            </div>
+            <div class="hidden md:block bg-blue-light/10 text-blue-light px-4 py-1 rounded-full text-[10px] font-black border border-blue-light/20">
+                PROMO TERBATAS HANYA BULAN INI DISKON HINGGA 50% 
+            </div>
+        </div>
+    </nav>
+
+    <section class="h-[40vh] flex items-center justify-center bg-[url('https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&q=80&w=2000')] bg-cover bg-fixed bg-center relative">
+        <div class="absolute inset-0 bg-black/70"></div>
+        <div class="relative z-10 text-center">
+            <h1 class="text-5xl font-black uppercase tracking-tighter">Pelayanan Kamar & <span class="text-blue-light italic">Reservasi</span></h1>
+            <p class="text-gray-400 text-xs tracking-[0.4em] mt-2">Penginapan Nyaman dan Lokasi Strategis • Melayani Anda 24 Jam</p>
+        </div>
+    </section>
+
+    <section class="py-16 container mx-auto px-6">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="card-room rounded-[2.5rem] overflow-hidden group cursor-pointer" onclick="openModal('standard')">
+                <div class="relative h-56 overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?auto=format&fit=crop&q=80&w=800" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                    <div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition">
+                        <span class="bg-white text-black px-4 py-2 rounded-full text-[10px] font-black uppercase">Lihat Fasilitas</span>
+                    </div>
+                </div>
+                <div class="p-8">
+                    <h3 class="text-xl font-bold mb-2">Standard Room</h3>
+                    <div class="flex items-center space-x-2">
+                        <span class="text-gray-600 line-through text-xs italic">Rp550.000</span>
+                        <span class="text-blue-light text-2xl font-black">Rp350.000</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-room rounded-[2.5rem] overflow-hidden group cursor-pointer border-blue-light/30" onclick="openModal('deluxe')">
+                <div class="relative h-56 overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1566665797739-1674de7a421a?auto=format&fit=crop&q=80&w=800" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                    <div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition">
+                        <span class="bg-white text-black px-4 py-2 rounded-full text-[10px] font-black uppercase">Lihat Fasilitas</span>
+                    </div>
+                </div>
+                <div class="p-8">
+                    <h3 class="text-xl font-bold mb-2">Deluxe Room</h3>
+                    <div class="flex items-center space-x-2">
+                        <span class="text-gray-600 line-through text-xs italic">Rp850.000</span>
+                        <span class="text-blue-light text-2xl font-black">R600.000</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-room rounded-[2.5rem] overflow-hidden group cursor-pointer" onclick="openModal('superior')">
+                <div class="relative h-56 overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1591088398332-8a7791972843?auto=format&fit=crop&q=80&w=800" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                    <div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition">
+                        <span class="bg-white text-black px-4 py-2 rounded-full text-[10px] font-black uppercase">Lihat Fasilitas</span>
+                    </div>
+                </div>
+                <div class="p-8">
+                    <h3 class="text-xl font-bold mb-2">Superior Room</h3>
+                    <div class="flex items-center space-x-2">
+                        <span class="text-gray-600 line-through text-xs italic">Rp1.350.000</span>
+                        <span class="text-blue-light text-2xl font-black">Rp850.000</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="booking" class="py-20 bg-[#070707]">
+        <div class="container mx-auto px-6 max-w-6xl">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+                
+                <div class="bg-blue-light p-10 rounded-[3rem] text-black">
+                    <h2 class="text-3xl font-black mb-6 italic uppercase tracking-tighter">Pembayaran Via Tranfer Bank BCA</h2>
+                    <div class="bg-black text-white p-8 rounded-[2rem] shadow-xl">
+                        <p class="text-[10px] text-blue-light font-bold mb-1 tracking-widest">NOMOR REKENING</p>
+                        <p class="text-4xl font-black tracking-widest mb-2">4280637420</p>
+                        <p class="text-xs opacity-60 uppercase font-bold italic">A/N NAUFAL HILMY AZIZ SATRIA</p>
+                    </div>
+                    <ul class="mt-10 space-y-4 text-xs font-bold leading-relaxed">
+                        <li><i class="fas fa-check-circle mr-2 text-black/50"></i> Konfirmasi Booking Instan via WhatsApp</li>
+                        <li><i class="fas fa-check-circle mr-2 text-black/50"></i> Pemandangan Eksklusif Lantai 17</li>
+                        <li><i class="fas fa-check-circle mr-2 text-black/50"></i> Check-in & Check-out Fleksibel (H-1 Konfirmasi)</li>
+                    </ul>
+                </div>
+
+                <div class="bg-[#111] p-10 rounded-[3rem] border border-white/5 shadow-2xl">
+                    <form id="reservationForm" class="space-y-4">
+                        <div>
+                            <label class="text-[9px] font-bold text-gray-500 uppercase tracking-widest ml-1 mb-1 block">Nama Lengkap</label>
+                            <input type="text" id="guestName" placeholder="Nama Sesuai KTP" class="w-full bg-black border border-white/10 p-4 rounded-2xl outline-none focus:border-blue-light transition" required>
+                        </div>
+                        
+                        <div>
+                            <label class="text-[9px] font-bold text-gray-500 uppercase tracking-widest ml-1 mb-1 block">Pilih Tipe Kamar</label>
+                            <select id="roomType" class="w-full bg-black border border-white/10 p-4 rounded-2xl outline-none focus:border-blue-light transition" onchange="calculateTotal()">
+                                <option value="350000" data-name="Standard Room">Standard (Rp350.000 /malam)</option>
+                                <option value="600000" data-name="Deluxe Room">Deluxe (Rp600.000 /malam)</option>
+                                <option value="850000" data-name="Superior Room">Superior (Rp850.000 /malam)</option>
+                            </select>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="text-[9px] font-bold text-gray-500 uppercase tracking-widest ml-1 mb-1 block">Check-In</label>
+                                <input type="date" id="checkIn" class="w-full bg-black border border-white/10 p-4 rounded-2xl outline-none focus:border-blue-light" onchange="calculateTotal()" required>
+                            </div>
+                            <div>
+                                <label class="text-[9px] font-bold text-gray-500 uppercase tracking-widest ml-1 mb-1 block">Check-Out</label>
+                                <input type="date" id="checkOut" class="w-full bg-black border border-white/10 p-4 rounded-2xl outline-none focus:border-blue-light" onchange="calculateTotal()" required>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="text-[9px] font-bold text-gray-500 uppercase tracking-widest ml-1 mb-1 block">Jumlah Tamu (Tamu >2 +Rp100rb)</label>
+                            <input type="number" id="guestCount" value="2" min="1" class="w-full bg-black border border-white/10 p-4 rounded-2xl outline-none focus:border-blue-light" oninput="calculateTotal()">
+                        </div>
+
+                        <div class="bg-black/40 p-6 rounded-[2rem] border border-white/5 space-y-3">
+                            <div class="flex justify-between text-[10px]">
+                                <span class="text-gray-500 italic" id="nightCount">Menginap: 1 Malam</span>
+                                <span class="text-blue-light font-black" id="extraBedLabel">Extra Bed: Rp0</span>
+                            </div>
+                            <div class="flex justify-between items-end border-t border-white/5 pt-4">
+                                <div>
+                                    <p class="text-[9px] text-gray-500 uppercase font-bold tracking-widest mb-1">Total Pembayaran</p>
+                                    <p id="totalDisplay" class="text-4xl font-black text-blue-light">Rp350.000</p>
+                                </div>
+                                <button type="submit" class="blue-gradient text-white px-8 py-4 rounded-2xl font-black text-xs uppercase tracking-widest hover:brightness-110 transition shadow-lg shadow-blue-500/20">Konfirmasi</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <div id="facilityModal" class="modal fixed inset-0 z-[100] flex items-center justify-center px-4">
+        <div class="absolute inset-0 bg-black/95 backdrop-blur-md" onclick="closeModal()"></div>
+        <div class="relative bg-[#111] border border-white/10 w-full max-w-md rounded-[2.5rem] overflow-hidden">
+            <button onclick="closeModal()" class="absolute top-6 right-6 text-gray-500 hover:text-white"><i class="fas fa-times text-xl"></i></button>
+            <div id="modalImage" class="h-44 w-full bg-cover bg-center"></div>
+            <div class="p-8">
+                <h2 id="modalTitle" class="text-2xl font-black text-blue-light italic uppercase mb-6">Detail Kamar</h2>
+                <div id="modalList" class="grid grid-cols-2 gap-4 text-[10px] text-gray-400"></div>
+                <button onclick="closeModal()" class="mt-8 w-full blue-gradient py-4 rounded-2xl font-black text-xs uppercase">Tutup</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const roomData = {
+            standard: {
+                title: "Standard Room",
+                image: "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?auto=format&fit=crop&q=80&w=800",
+                list: ["WiFi 5G", "Smart TV 32\"", "AC Central", "Shower", "Snack Gratis", "Air Mineral"]
+            },
+            deluxe: {
+                title: "Deluxe Room",
+                image: "https://images.unsplash.com/photo-1566665797739-1674de7a421a?auto=format&fit=crop&q=80&w=800",
+                list: ["WiFi 5G","Smart TV 32\"","AC Central","Shower","Snack Gratis","Air Mineral","Queen Bed", "Water Heater", "Pemanas Listrik", "Sandal Hotel", "Coffee Set"]
+            },
+            superior: {
+                title: "Superior Room",
+                image: "https://images.unsplash.com/photo-1591088398332-8a7791972843?auto=format&fit=crop&q=80&w=800",
+                list: ["WiFi 5G","Smart TV 32\"","AC Central","Shower","Snack Gratis","Air Mineral","Queen Bed", "Water Heater", "Pemanas Listrik", "Sandal Hotel","Coffee Set","Balkon Pribadi", "Ruang Tamu", "Mini Kulkas", "Safety Box", "King Bed"]
+            }
+        };
+
+        function calculateTotal() {
+            const pricePerNight = parseInt(document.getElementById('roomType').value);
+            const guestCount = parseInt(document.getElementById('guestCount').value);
+            const inDate = new Date(document.getElementById('checkIn').value);
+            const outDate = new Date(document.getElementById('checkOut').value);
+            
+            let diffDays = 1; // Default 1 malam
+            if (inDate && outDate && outDate > inDate) {
+                const diffTime = Math.abs(outDate - inDate);
+                diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            }
+
+            let extraBedCost = 0;
+            if (guestCount > 2) {
+                extraBedCost = 100000;
+                document.getElementById('extraBedLabel').innerText = `Extra Bed: Rp${extraBedCost.toLocaleString('id-ID')}`;
+            } else {
+                document.getElementById('extraBedLabel').innerText = `Extra Bed: Rp0`;
+            }
+
+            const total = (pricePerNight * diffDays) + extraBedCost;
+
+            document.getElementById('nightCount').innerText = `Menginap: ${diffDays} Malam`;
+            document.getElementById('totalDisplay').innerText = `Rp${total.toLocaleString('id-ID')}`;
+            
+            return { total, diffDays, extraBedCost };
+        }
+
+        function openModal(type) {
+            const data = roomData[type];
+            document.getElementById('modalTitle').innerText = data.title;
+            document.getElementById('modalImage').style.backgroundImage = `url('${data.image}')`;
+            document.getElementById('modalList').innerHTML = data.list.map(f => `<div class="flex items-center"><i class="fas fa-check text-blue-light mr-2"></i>${f}</div>`).join('');
+            document.getElementById('facilityModal').classList.add('active');
+        }
+
+        function closeModal() { document.getElementById('facilityModal').classList.remove('active'); }
+
+        document.getElementById('reservationForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const calc = calculateTotal();
+            const name = document.getElementById('guestName').value;
+            const room = document.getElementById('roomType').options[document.getElementById('roomType').selectedIndex].getAttribute('data-name');
+            const inDate = document.getElementById('checkIn').value;
+            const outDate = document.getElementById('checkOut').value;
+            
+            const msg = `Halo BSI Hotel, saya ${name} ingin booking ${room}%0A%0A` +
+                        `Check-in: ${inDate}%0A` +
+                        `Check-out: ${outDate}%0A` +
+                        `Durasi: ${calc.diffDays} Malam%0A` +
+                        `Tamu: ${document.getElementById('guestCount').value} Orang%0A` +
+                        `Extra Bed: ${calc.extraBedCost > 0 ? 'Ya' : 'Tidak'}%0A%0A` +
+                        `*Total Bayar:* Rp${calc.total.toLocaleString('id-ID')}%0A` +
+                        `Mohon Tranfer ke Rekening BCA 4280637420, dan kirim bukti pembayaran untuk konfirmasi ketersediaan kamar. Terima kasih.`;
+
+            window.open(`https://wa.me/6285808488793?text=${msg}`, '_blank');
+        });
+    </script>
+
+</body>
+</html>
